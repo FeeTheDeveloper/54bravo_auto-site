@@ -11,23 +11,28 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 const services = [
   {
     title: "Mobile repair & diagnostics",
-    detail: "Professional fault isolation and on-site repair without losing the day to a shop queue.",
-    code: "DIAG / 01",
+    image: "/media/service-mobile-diagnostics.jpg",
+    alt: "Mobile technician running diagnostics on a commercial cargo van",
   },
   {
     title: "Preventive maintenance",
-    detail: "Planned service built around mileage, duty cycle, and the realities of your operation.",
-    code: "PM / 02",
+    image: "/media/service-preventive-maintenance.jpg",
+    alt: "Technician inspecting a commercial vehicle engine during preventive maintenance",
   },
   {
-    title: "Emergency on-site repair",
-    detail: "A disciplined response for breakdowns that interrupt routes, crews, and commitments.",
-    code: "RESP / 03",
+    title: "Fleet & commercial support",
+    image: "/media/service-fleet-support.jpg",
+    alt: "Mobile service truck supporting a row of commercial fleet vans",
   },
   {
     title: "Third-party service support",
-    detail: "Reliable field execution for automotive, warranty, and business partners who need coverage.",
-    code: "B2B / 04",
+    image: "/media/service-partner-support.jpg",
+    alt: "Technician documenting a commercial vehicle inspection for a service partner",
+  },
+  {
+    title: "Emergency on-site repair",
+    image: "/media/service-emergency-onsite.jpg",
+    alt: "Mobile technician performing a safe after-hours repair on a work van",
   },
 ];
 
@@ -42,11 +47,18 @@ const industries = [
 function BrandMark() {
   return (
     <a className="brand-mark" href="#top" aria-label="54 Bravo Auto Repair home">
-      <span className="brand-number">54</span>
-      <span className="brand-copy">
-        <strong>Bravo</strong>
-        <small>Auto Repair</small>
+      <span className="brand-ambience" aria-hidden="true" />
+      <span className="flag-wave" aria-hidden="true">
+        <span className="flag-canton">✦ ✦ ✦<br />✦ ✦ ✦</span>
       </span>
+      <Image
+        className="brand-logo"
+        src="/media/54-bravo-logo-polished.png"
+        alt=""
+        width={1254}
+        height={1254}
+        priority
+      />
     </a>
   );
 }
@@ -198,7 +210,7 @@ export function BravoExperience() {
             muted
             loop
             playsInline
-            poster="/media/field-service-hero.png"
+            poster="/media/field-service-hero.jpg"
             aria-hidden="true"
           >
             <source src="/media/mission-loop.mp4" type="video/mp4" />
@@ -259,12 +271,50 @@ export function BravoExperience() {
           <div className="service-grid">
             {services.map((service, index) => (
               <article className={`service-card service-card-${index + 1} reveal-card`} key={service.title}>
-                <div className="service-code">{service.code}</div>
-                <h3>{service.title}</h3>
-                <p>{service.detail}</p>
-                <span className="service-arrow" aria-hidden="true">↗</span>
+                <Image
+                  className="service-card-image"
+                  src={service.image}
+                  alt={service.alt}
+                  fill
+                  sizes="(max-width: 700px) 90vw, (max-width: 1100px) 46vw, 31vw"
+                />
+                <div className="service-card-shade" aria-hidden="true" />
+                <div className="service-card-content">
+                  <h3>{service.title}</h3>
+                </div>
               </article>
             ))}
+          </div>
+        </section>
+
+        <section className="field-force section-shell" aria-labelledby="field-force-title">
+          <div className="field-force-intro reveal-card">
+            <p className="eyebrow">People + equipment</p>
+            <h2 id="field-force-title">The capability arrives with the crew.</h2>
+            <p>
+              Professional technicians, organized mobile equipment, and a field-ready operating standard—built
+              to support working vehicles wherever the mission requires.
+            </p>
+          </div>
+          <div className="field-force-gallery">
+            <figure className="field-force-frame field-force-vehicle reveal-card">
+              <Image
+                src="/media/mobile-service-truck.jpg"
+                alt="Fully equipped charcoal mobile auto service truck in a fleet yard"
+                fill
+                sizes="(max-width: 800px) 90vw, 58vw"
+              />
+              <figcaption><strong>Equipped for the field</strong></figcaption>
+            </figure>
+            <figure className="field-force-frame field-force-team reveal-card">
+              <Image
+                src="/media/service-team.jpg"
+                alt="Four professional mobile automotive service technicians beside a service truck"
+                fill
+                sizes="(max-width: 800px) 90vw, 34vw"
+              />
+              <figcaption><strong>Disciplined execution</strong></figcaption>
+            </figure>
           </div>
         </section>
 
@@ -409,8 +459,8 @@ export function BravoExperience() {
             <button className="button button-primary submit-button" type="submit">Prepare service request</button>
             <p className="form-status" role="status" aria-live="polite">
               {requestState === "ready"
-                ? "Request details are ready. Connect the dispatch endpoint before launch to transmit submissions."
-                : "No details are transmitted from this local preview."}
+                ? "Your request is staged in this browser only. This build does not transmit submissions."
+                : "Online dispatch intake is not connected yet. No details are transmitted."}
             </p>
           </form>
         </section>
